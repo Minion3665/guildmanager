@@ -15,20 +15,28 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from setuptools import setup
 import subprocess
 
+from setuptools import setup
+
 with open("./guildmanager/__init__.py") as i:
-	I = i.readlines()[0].split(" ")[-1]   # __version__ = ["this.here.now"]
+	I = i.readlines()[0].split(" ")[-1]  # __version__ = ["this.here.now"]
 
 with open("./README.md") as a:
 	AM = a.read()
 
 with open("./requirements.txt") as m:
-	THE = m.readlines()  # readlines instead of read().split("\n") because fuck .split
+	THE = m.readlines()  # readlines instead of read().split("\n") because f*ck .split
 
 with open("./classifiers.txt") as t:
 	SENATE = t.readlines()
+
+try:
+	with open("vers.ion", "w+") as file:
+		out = str(subprocess.check_output(["git", "rev-parse", "HEAD"]))
+		file.write(out.strip())
+except:
+	pass
 
 setup(
 	name="GuildManager",
@@ -46,9 +54,3 @@ setup(
 	classifiers=     SENATE,
 	python_requires=">=3.7"
 )
-try:
-	with open("vers.ion", "w+") as file:
-		out = str(subprocess.check_output(["git", "rev-parse", "HEAD"]))
-		file.write(out.strip())
-except:
-	pass
